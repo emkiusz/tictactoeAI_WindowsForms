@@ -19,6 +19,7 @@ namespace tictactoeAI
         PictureBox[] poleGracza;
         String planszaZapis = "";
         int czyjaTura = 1;
+        bool zapis = true;
 
         public Form1()
         {
@@ -28,6 +29,7 @@ namespace tictactoeAI
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            zapis = true;
             planszaZapis = "";
             if (!File.Exists("przegrana.txt"))
             {
@@ -113,7 +115,7 @@ namespace tictactoeAI
                         tempLine = line.Substring(0, planszaZapis.Length);
                         if (tempLine.Contains(planszaZapis.Substring(0, planszaZapis.Length)))
                         {
-                            //MessageBox.Show("Mój następny ruch, aby nie przegrać: " + line.Substring(planszaZapis.Length+1, 1));
+                            MessageBox.Show("Mój następny ruch, aby nie przegrać: " + line.Substring(planszaZapis.Length+1, 1));
                             kolejnyRuch = int.Parse(line.Substring(planszaZapis.Length+1, 1));
                             wygrana = 0;
                             break;
@@ -130,7 +132,7 @@ namespace tictactoeAI
                             tempLine = line.Substring(0, planszaZapis.Length);
                             if (tempLine.Contains(planszaZapis.Substring(0, planszaZapis.Length)))
                             {
-                                //MessageBox.Show("Mój następny ruch, aby wygrać: " + line.Substring(planszaZapis.Length, 1));
+                                MessageBox.Show("Mój następny ruch, aby wygrać: " + line.Substring(planszaZapis.Length, 1));
                                 kolejnyRuch = int.Parse(line.Substring(planszaZapis.Length, 1));
                                 wygrana = 1;
                                 break;
@@ -283,7 +285,17 @@ namespace tictactoeAI
                             z++;
                         }
                     }
-                    File.AppendAllText("przegrana.txt", planszaZapis + Environment.NewLine);              
+                    foreach (var line in File.ReadLines("przegrana.txt"))
+                    {
+                        if(line==planszaZapis)
+                        {
+                            zapis = false;
+                        }
+                    }
+                    if (zapis == true)
+                    {
+                        File.AppendAllText("przegrana.txt", planszaZapis + Environment.NewLine);
+                    }
                     label3.Text = "Wygrał gracz.";
                     button1.Visible = true;
                     czyjaTura=3;
@@ -310,7 +322,17 @@ namespace tictactoeAI
                             z++;
                         }
                     }
-                    File.AppendAllText("wygrana.txt", planszaZapis + Environment.NewLine);
+                    foreach (var line in File.ReadLines("wygrana.txt"))
+                    {
+                        if (line == planszaZapis)
+                        {
+                            zapis = false;
+                        }
+                    }
+                    if (zapis == true)
+                    {
+                        File.AppendAllText("wygrana.txt", planszaZapis + Environment.NewLine);
+                    }
                     label3.Text = "Wygrał komputer.";
                     button1.Visible = true;
                     czyjaTura =4;
@@ -320,7 +342,9 @@ namespace tictactoeAI
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Application.Restart();
+            Form1 NewForm = new Form1();
+            NewForm.Show();
+            this.Dispose(false);
         }
     }
 }

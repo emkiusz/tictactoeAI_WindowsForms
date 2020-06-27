@@ -30,7 +30,6 @@
         {
             this.process1 = new System.Diagnostics.Process();
             this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pole1 = new System.Windows.Forms.PictureBox();
@@ -75,17 +74,6 @@
             this.label1.TabIndex = 10;
             this.label1.Text = "Kółko, krzyżyk i sztuczna inteligencja";
             this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // label2
-            // 
-            this.label2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(64, 340);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(161, 13);
-            this.label2.TabIndex = 11;
-            this.label2.Text = "Marcin Kiszka, Tomasz Kamiński";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
             // button1
             // 
@@ -225,7 +213,6 @@
             this.ClientSize = new System.Drawing.Size(284, 362);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pole8);
             this.Controls.Add(this.pole9);
@@ -257,7 +244,6 @@
 
         #endregion
         private System.Diagnostics.Process process1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label3;
