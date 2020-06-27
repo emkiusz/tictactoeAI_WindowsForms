@@ -111,7 +111,7 @@ namespace tictactoeAI
                     {
                         //MessageBox.Show("Koniec gry: "+line.Substring(planszaZapis.Length, 1));
                         tempLine = line.Substring(0, planszaZapis.Length);
-                        if (tempLine.Contains(planszaZapis.Substring(0, planszaZapis.Length)) && line.Substring(planszaZapis.Length+2,1)=="#")
+                        if (tempLine.Contains(planszaZapis.Substring(0, planszaZapis.Length)))
                         {
                             //MessageBox.Show("Mój następny ruch, aby nie przegrać: " + line.Substring(planszaZapis.Length+1, 1));
                             kolejnyRuch = int.Parse(line.Substring(planszaZapis.Length+1, 1));
