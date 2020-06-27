@@ -109,11 +109,13 @@ namespace tictactoeAI
                 {
                     if (line != "")
                     {
+                        //MessageBox.Show("Koniec gry: "+line.Substring(planszaZapis.Length, 1));
                         tempLine = line.Substring(0, planszaZapis.Length);
-                        if (tempLine.Contains(planszaZapis.Substring(0, planszaZapis.Length)))
+                        if (tempLine.Contains(planszaZapis.Substring(0, planszaZapis.Length)) && line.Substring(planszaZapis.Length+2,1)=="0")
                         {
-                            MessageBox.Show("Następny ruch, aby nie przegrać: " + line.Substring(planszaZapis.Length, 1));
-                            kolejnyRuch = int.Parse(line.Substring(planszaZapis.Length, 1));
+                            //MessageBox.Show("Następny ruch, aby nie przegrać: " + line.Substring(planszaZapis.Length+1, 1) + Environment.NewLine +
+                                    "Linia: " + line);
+                            kolejnyRuch = int.Parse(line.Substring(planszaZapis.Length+1, 1));
                             wygrana = 0;
                             break;
                         }
@@ -129,7 +131,7 @@ namespace tictactoeAI
                             tempLine = line.Substring(0, planszaZapis.Length);
                             if (tempLine.Contains(planszaZapis.Substring(0, planszaZapis.Length)))
                             {
-                                MessageBox.Show("Następny ruch, aby wygrać: " + line.Substring(planszaZapis.Length, 1));
+                                //MessageBox.Show("Następny ruch, aby wygrać: " + line.Substring(planszaZapis.Length, 1));
                                 kolejnyRuch = int.Parse(line.Substring(planszaZapis.Length, 1));
                                 wygrana = 1;
                                 break;
@@ -138,24 +140,13 @@ namespace tictactoeAI
                     }
                 }
                                 
-                if (wygrana != 1)
+                if (wygrana == -1)
                 {
-                    if (wygrana == -1)
+                    do
                     {
-                        do
-                        {
-                            randomNum = rand.Next(9);
-                        }
-                        while (plansza[randomNum] != 0);
+                        randomNum = rand.Next(9);
                     }
-                    if(wygrana==0)
-                    {
-                        do
-                        {
-                            randomNum = rand.Next(9);
-                        }
-                        while (plansza[randomNum] != 0 && randomNum!=kolejnyRuch);
-                    }
+                    while (plansza[randomNum] != 0);           
                 }
                 else
                 {
@@ -224,17 +215,51 @@ namespace tictactoeAI
         #endregion
         public void sprawdzWygrana()
         {
-            MessageBox.Show(planszaZapis.Length.ToString());
             String temp = "";
             foreach(int z in plansza)
             {
                 temp += z.ToString();
             }
-            if(!temp.Contains("0"))
-            {                
-                label3.Text = "Remis";
-                button1.Visible = true;
-                czyjaTura = 5;
+            if (!temp.Contains("0"))
+            {
+                if
+                (
+                    (plansza[0] == 1 && plansza[1] == 1 && plansza[2] == 1) ||
+                    (plansza[0] == 1 && plansza[4] == 1 && plansza[8] == 1) ||
+                    (plansza[1] == 1 && plansza[4] == 1 && plansza[7] == 1) ||
+                    (plansza[2] == 1 && plansza[4] == 1 && plansza[6] == 1) ||
+                    (plansza[3] == 1 && plansza[4] == 1 && plansza[5] == 1) ||
+                    (plansza[0] == 1 && plansza[3] == 1 && plansza[6] == 1) ||
+                    (plansza[2] == 1 && plansza[5] == 1 && plansza[8] == 1) ||
+                    (plansza[6] == 1 && plansza[7] == 1 && plansza[8] == 1)
+                )
+                {
+                    label3.Text = "Wygrał gracz.";
+                    button1.Visible = true;
+                    czyjaTura = 3;
+                }
+                else if
+                (
+                     (plansza[0] == 2 && plansza[1] == 2 && plansza[2] == 2) ||
+                     (plansza[0] == 2 && plansza[4] == 2 && plansza[8] == 2) ||
+                     (plansza[1] == 2 && plansza[4] == 2 && plansza[7] == 2) ||
+                     (plansza[2] == 2 && plansza[4] == 2 && plansza[6] == 2) ||
+                     (plansza[3] == 2 && plansza[4] == 2 && plansza[5] == 2) ||
+                     (plansza[0] == 2 && plansza[3] == 2 && plansza[6] == 2) ||
+                     (plansza[2] == 2 && plansza[5] == 2 && plansza[8] == 2) ||
+                     (plansza[6] == 2 && plansza[7] == 2 && plansza[8] == 2)
+                )
+                {
+                    label3.Text = "Wygrał komputer.";
+                    button1.Visible = true;
+                    czyjaTura = 4;
+                }
+                else
+                {
+                    label3.Text = "Remis";
+                    button1.Visible = true;
+                    czyjaTura = 5;
+                }                    
             }
             else
             {
